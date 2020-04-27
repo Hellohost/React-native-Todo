@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, Alert } from 'react-native'
 import * as Font from 'expo-font'
-import {AppLoading} from 'expo'
+import { AppLoading } from 'expo'
 
 import { MainLayout } from './src/MainLayout'
 import { TodoState } from './src/context/todo/TodoState'
-
-
+import { ScreenState } from './src/context/screen/ScreenState'
 
 async function loadApplication() {
   await Font.loadAsync({
@@ -18,19 +17,20 @@ async function loadApplication() {
 export default function App() {
   const [isReady, setIsReady] = useState(false)
 
-  if (!isReady) 
-  {
+  if (!isReady) {
     return (
-     <AppLoading startAsync={loadApplication}
-    onError={ err => console.log(err)}
-    onFinish={()=> setIsReady(true)}/>
+      <AppLoading startAsync={loadApplication}
+        onError={err => console.log(err)}
+        onFinish={() => setIsReady(true)} />
     )
   }
 
   return (
-   <TodoState>
-     <MainLayout />
-   </TodoState>
+    <ScreenState>
+      <TodoState>
+        <MainLayout />
+      </TodoState>
+    </ScreenState>
   )
 }
 
